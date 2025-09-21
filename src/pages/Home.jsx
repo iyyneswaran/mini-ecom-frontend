@@ -1,16 +1,18 @@
 import { Fragment } from "react/jsx-runtime";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
 
     const [products, setProducts] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_URL + "/products")
+        fetch(process.env.REACT_APP_API_URL + "/products?" + searchParams)
             .then(res => res.json())
             .then(res => setProducts(res.products))
-    });
+    }, [searchParams]);
 
     return <Fragment>
 
